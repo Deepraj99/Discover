@@ -13,9 +13,13 @@ class NewsViewModel(private val newsRepository: NewsRepository) : ViewModel() {
     init {
         viewModelScope.launch(Dispatchers.IO) {
             newsRepository.getTopHeadlines("us", "business")
+            newsRepository.getAllNews("india", "publishedAt")
         }
     }
 
     val topHeadlinesData: LiveData<News>
-    get() = newsRepository.newsLiveData
+    get() = newsRepository.newsTopHeadlinesLiveData
+
+    val allNewsData: LiveData<News>
+    get() = newsRepository.newsAllLiveData
 }

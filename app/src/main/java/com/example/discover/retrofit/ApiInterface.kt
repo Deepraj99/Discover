@@ -14,4 +14,11 @@ interface ApiInterface {
         @Query("category") category: String,
         @Query("apiKey") apiKey: String = API_KEY
     ) : Response<News>
+
+    @GET("everything")
+    suspend fun getAllNews(
+        @Query("q") q: String,
+        @Query("sortBy") sortBy: String,
+        @Query("apiKey") apiKey: String = API_KEY
+    ) : Response<News>
 }

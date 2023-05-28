@@ -8,15 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.discover.R
 import com.example.discover.activities.NewsApplication
+import com.example.discover.databinding.FragmentHomeBinding
 import com.example.discover.viewModels.NewsViewModel
 import com.example.discover.viewModels.NewsViewModelFactory
 
 class HomeFragment : Fragment() {
 
     private lateinit var newsViewModel: NewsViewModel
-//    private lateinit var binding: FragmentHomeBinding
+    private lateinit var binding: FragmentHomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -26,10 +26,8 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        binding = FragmentHomeBinding.inflate(inflater, container, false)
-//        return binding.root
-
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,7 +38,11 @@ class HomeFragment : Fragment() {
 
         newsViewModel.topHeadlinesData.observe(viewLifecycleOwner, Observer {
             val data = it.articles.size
-            Log.d("DEEPAK", data.toString())
+            Log.d("DEEPAK1", data.toString())
+        })
+
+        newsViewModel.allNewsData.observe(viewLifecycleOwner, Observer {
+            Log.d("DEEPAK2", it.articles.size.toString())
         })
 
     }
