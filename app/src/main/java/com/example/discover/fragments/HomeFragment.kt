@@ -10,7 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.discover.activities.NewsApplication
 import com.example.discover.adapters.AllNewsAdapter
+import com.example.discover.adapters.ViewPagerAdapter
 import com.example.discover.databinding.FragmentHomeBinding
+import com.example.discover.utils.ViewPagerTransition
 import com.example.discover.viewModels.NewsViewModel
 import com.example.discover.viewModels.NewsViewModelFactory
 
@@ -34,7 +36,13 @@ class HomeFragment : Fragment() {
         val newsRepository = (activity?.applicationContext as NewsApplication).newsRepository
         newsViewModel = ViewModelProvider(this, NewsViewModelFactory(newsRepository))[NewsViewModel::class.java]
 
+        //top-headlines
+        ViewPagerTransition.transitions(binding.viewPager)
+        newsViewModel.topHeadlinesData.observe(viewLifecycleOwner, Observer {
+            binding.viewPager.adapter = ViewPagerAdapter(it.articles)
+        })
 
+        //All News
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = allNewsAdapter
 
@@ -43,6 +51,7 @@ class HomeFragment : Fragment() {
         })
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
