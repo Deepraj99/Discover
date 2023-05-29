@@ -3,8 +3,10 @@ package com.example.discover.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.discover.R
 import com.example.discover.models.Article
 
@@ -12,7 +14,11 @@ class ViewPagerAdapter(private val newsList: List<Article>) : RecyclerView.Adapt
     private lateinit var view: View
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvDemo = view.findViewById<TextView>(R.id.tv_demo)!!
+        val ivBackground = view.findViewById<ImageView>(R.id.ivBackground)!!
+        val tvSource = view.findViewById<TextView>(R.id.tvSource)!!
+        val tvHeading = view.findViewById<TextView>(R.id.tvHeading)!!
+        val tvAuthor = view.findViewById<TextView>(R.id.tvAuthor)!!
+        val tvDate = view.findViewById<TextView>(R.id.tvDate)!!
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -26,6 +32,10 @@ class ViewPagerAdapter(private val newsList: List<Article>) : RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.tvDemo.text = newsList[position].author
+        holder.tvSource.text = newsList[position].source.name
+        holder.tvHeading.text = newsList[position].title
+        holder.tvAuthor.text = newsList[position].author
+        holder.tvDate.text = newsList[position].publishedAt.substring(0, 10)
+        Glide.with(view).load(newsList[position].urlToImage).centerCrop().placeholder(R.drawable.no_image_avaliable).into(holder.ivBackground)
     }
 }
