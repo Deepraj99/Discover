@@ -11,8 +11,9 @@ import com.bumptech.glide.Glide
 import com.example.discover.R
 import com.example.discover.models.Article
 import com.example.discover.utils.NewsDiffUtil
+import com.example.discover.utils.OnNewsClickListener
 
-class AllNewsAdapter: RecyclerView.Adapter<AllNewsAdapter.MyViewHolder>() {
+class AllNewsAdapter(private val onNewsClickListener: OnNewsClickListener) : RecyclerView.Adapter<AllNewsAdapter.MyViewHolder>() {
     private lateinit var view: View
     private var oldNewsList = emptyList<Article>()
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -38,6 +39,10 @@ class AllNewsAdapter: RecyclerView.Adapter<AllNewsAdapter.MyViewHolder>() {
         holder.tvAuthor.text = oldNewsList[position].author
         holder.tvDate.text = oldNewsList[position].publishedAt.substring(0, 10)
         Glide.with(view).load(oldNewsList[position].urlToImage).centerCrop().placeholder(R.drawable.no_image_avaliable).into(holder.ivBackground)
+
+        holder.itemView.setOnClickListener {
+            onNewsClickListener.onNewsItemClickListener(position, oldNewsList[position])
+        }
     }
 
     fun setData(newNewsList: List<Article>) {
