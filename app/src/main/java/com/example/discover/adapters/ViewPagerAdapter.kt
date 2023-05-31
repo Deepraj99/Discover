@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.discover.R
 import com.example.discover.models.Article
+import com.example.discover.utils.OnNewsClickListener
 
-class ViewPagerAdapter(private val newsList: List<Article>) : RecyclerView.Adapter<ViewPagerAdapter.MyViewHolder>() {
+class ViewPagerAdapter(private val newsList: List<Article>, private val onNewsClickListener: OnNewsClickListener) : RecyclerView.Adapter<ViewPagerAdapter.MyViewHolder>() {
     private lateinit var view: View
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -37,5 +38,9 @@ class ViewPagerAdapter(private val newsList: List<Article>) : RecyclerView.Adapt
         holder.tvAuthor.text = newsList[position].author
         holder.tvDate.text = newsList[position].publishedAt.substring(0, 10)
         Glide.with(view).load(newsList[position].urlToImage).centerCrop().placeholder(R.drawable.no_image_avaliable).into(holder.ivBackground)
+
+        holder.itemView.setOnClickListener {
+            onNewsClickListener.onNewsItemClickListener(position, newsList[position])
+        }
     }
 }

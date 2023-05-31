@@ -30,7 +30,7 @@ import com.example.discover.viewModels.NewsViewModel
 import com.example.discover.viewModels.NewsViewModelFactory
 import com.facebook.shimmer.ShimmerFrameLayout
 
-class HomeFragment() : Fragment(), OnNewsClickListener {
+class HomeFragment : Fragment(), OnNewsClickListener {
 
     private lateinit var newsViewModel: NewsViewModel
     private lateinit var binding: FragmentHomeBinding
@@ -57,7 +57,7 @@ class HomeFragment() : Fragment(), OnNewsClickListener {
         newsViewModel.topHeadlinesData.observe(viewLifecycleOwner, Observer {
             binding.shimmerViewContainerViewPager.stopShimmer()
             binding.shimmerViewContainerViewPager.visibility = View.GONE
-            binding.viewPager.adapter = ViewPagerAdapter(it.articles)
+            binding.viewPager.adapter = ViewPagerAdapter(it.articles, this)
         })
 
         //All News
