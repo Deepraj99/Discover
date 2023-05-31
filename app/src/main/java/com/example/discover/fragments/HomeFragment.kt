@@ -1,8 +1,10 @@
 package com.example.discover.fragments
 
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,11 +28,13 @@ import com.example.discover.utils.OnNewsClickListener
 import com.example.discover.utils.ViewPagerTransition
 import com.example.discover.viewModels.NewsViewModel
 import com.example.discover.viewModels.NewsViewModelFactory
+import com.facebook.shimmer.ShimmerFrameLayout
 
 class HomeFragment() : Fragment(), OnNewsClickListener {
 
     private lateinit var newsViewModel: NewsViewModel
     private lateinit var binding: FragmentHomeBinding
+
     private val allNewsAdapter by lazy { AllNewsAdapter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +53,10 @@ class HomeFragment() : Fragment(), OnNewsClickListener {
 
         //top-headlines
         ViewPagerTransition.transitions(binding.viewPager)
+
         newsViewModel.topHeadlinesData.observe(viewLifecycleOwner, Observer {
+            binding.shimmerViewContainerViewPager.stopShimmer()
+            binding.shimmerViewContainerViewPager.visibility = View.GONE
             binding.viewPager.adapter = ViewPagerAdapter(it.articles)
         })
 
@@ -58,6 +65,8 @@ class HomeFragment() : Fragment(), OnNewsClickListener {
         binding.recyclerView.adapter = allNewsAdapter
 
         newsViewModel.allNewsData.observe(viewLifecycleOwner, Observer {
+            binding.shimmerViewContainer.stopShimmer()
+            binding.shimmerViewContainer.visibility = View.GONE
             allNewsAdapter.setData(it.articles)
         })
         return binding.root
