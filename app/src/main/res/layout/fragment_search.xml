@@ -16,14 +16,14 @@
             android:id="@+id/tabLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tabGravity="center"
             app:tabIndicatorHeight="0dp"
-            app:tabMode="fixed"
-            android:background="@drawable/tab_background"
-            android:layout_margin="@dimen/_16sdp"
+            app:tabMode="scrollable"
+            app:tabMinWidth="@dimen/_1sdp"
             app:tabRippleColor="@null" />
 
         <androidx.viewpager2.widget.ViewPager2

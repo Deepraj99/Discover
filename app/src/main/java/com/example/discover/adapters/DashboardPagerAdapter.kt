@@ -4,16 +4,22 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.discover.CategoryFragment
 
-class DashboardPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+class DashboardPagerAdapter(fragment: Fragment, private val listSize: Int) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int {
-        return 3
+        return listSize
     }
 
     override fun createFragment(position: Int): Fragment {
         return when(position) {
-            0 -> CategoryFragment("Chat")
-            1 -> CategoryFragment("Status")
-            else -> CategoryFragment("Calls")
+            0 -> CategoryFragment("india")
+            1 -> CategoryFragment("politic")
+            2 -> CategoryFragment("sport")
+            3 -> CategoryFragment("education")
+            4 -> CategoryFragment("technology")
+            5 -> CategoryFragment("bollywood")
+            6 -> CategoryFragment("games")
+            7 -> CategoryFragment("entertainment")
+            else -> CategoryFragment("all")
         }
     }
 }

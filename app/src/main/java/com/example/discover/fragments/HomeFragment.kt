@@ -49,7 +49,7 @@ class HomeFragment : Fragment(), OnNewsClickListener {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         val newsRepository = (activity?.applicationContext as NewsApplication).newsRepository
-        newsViewModel = ViewModelProvider(this, NewsViewModelFactory(newsRepository))[NewsViewModel::class.java]
+        newsViewModel = ViewModelProvider(this, NewsViewModelFactory(newsRepository, "india", "publishedAt"))[NewsViewModel::class.java]
 
         //top-headlines
         ViewPagerTransition.transitions(binding.viewPager)

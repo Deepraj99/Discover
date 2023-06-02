@@ -19,7 +19,7 @@ import com.example.discover.utils.OnNewsClickListener
 import com.example.discover.viewModels.NewsViewModel
 import com.example.discover.viewModels.NewsViewModelFactory
 
-class CategoryFragment(private val text: String) : Fragment(), OnNewsClickListener {
+class CategoryFragment(private val q: String) : Fragment(), OnNewsClickListener {
 
     private lateinit var binding: FragmentCategoryBinding
     private lateinit var newsViewModel: NewsViewModel
@@ -36,7 +36,7 @@ class CategoryFragment(private val text: String) : Fragment(), OnNewsClickListen
         binding = FragmentCategoryBinding.inflate(inflater, container, false)
 
         val newsRepository = (activity?.applicationContext as NewsApplication).newsRepository
-        newsViewModel = ViewModelProvider(this, NewsViewModelFactory(newsRepository))[NewsViewModel::class.java]
+        newsViewModel = ViewModelProvider(this, NewsViewModelFactory(newsRepository, q, "publishedAt"))[NewsViewModel::class.java]
 
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())

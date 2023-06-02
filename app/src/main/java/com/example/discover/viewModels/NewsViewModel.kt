@@ -8,12 +8,12 @@ import com.example.discover.repository.NewsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class NewsViewModel(private val newsRepository: NewsRepository) : ViewModel() {
+class NewsViewModel(private val newsRepository: NewsRepository, private val q: String, private val publishedAt: String) : ViewModel() {
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             newsRepository.getTopHeadlines("us", "business")
-            newsRepository.getAllNews("india", "publishedAt")
+            newsRepository.getAllNews(q, publishedAt)
         }
     }
 
