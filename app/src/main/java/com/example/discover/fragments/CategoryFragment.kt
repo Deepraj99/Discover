@@ -1,4 +1,4 @@
-package com.example.discover
+package com.example.discover.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -43,14 +43,10 @@ class CategoryFragment(private val q: String) : Fragment(), OnNewsClickListener 
         binding.recyclerView.adapter = allNewsAdapter
 
         newsViewModel.allNewsData.observe(viewLifecycleOwner, Observer {
+            binding.shimmerViewContainer.stopShimmer()
+            binding.shimmerViewContainer.visibility = View.GONE
             allNewsAdapter.setData(it.articles)
         })
-
-//        newsViewModel.allNewsData.observe(viewLifecycleOwner, Observer {
-//            binding.shimmerViewContainer.stopShimmer()
-//            binding.shimmerViewContainer.visibility = View.GONE
-//            allNewsAdapter.setData(it.articles)
-//        })
         return binding.root
     }
 

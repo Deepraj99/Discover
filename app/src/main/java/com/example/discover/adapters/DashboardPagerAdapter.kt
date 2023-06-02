@@ -2,7 +2,7 @@ package com.example.discover.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.discover.CategoryFragment
+import com.example.discover.fragments.CategoryFragment
 
 class DashboardPagerAdapter(fragment: Fragment, private val listSize: Int) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int {
