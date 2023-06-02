@@ -178,15 +178,16 @@
         </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="30dp"
-            android:backgroundTint="#FA0505"
+            android:backgroundTint="@color/white"
             android:baselineAlignBottom="true"
             android:clickable="true"
             app:fabSize="normal"
             app:layout_anchor="@id/appbar"
-            app:tint="@color/white"
+            app:tint="@color/gray"
             android:src="@drawable/ic_favorite"
             app:layout_anchorGravity="end|bottom"
             android:focusable="true" />

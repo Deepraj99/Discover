@@ -1,19 +1,29 @@
 package com.example.discover.activities
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.example.discover.R
 import com.example.discover.databinding.ActivityDetailedBinding
+import com.example.discover.db.ArticleDatabase
+import com.example.discover.db.ArticlesDao
+import com.example.discover.models.Article
+import com.example.discover.models.Source
 import com.example.discover.utils.Constants.Companion.AUTHOR
 import com.example.discover.utils.Constants.Companion.DATE
 import com.example.discover.utils.Constants.Companion.DESCRIPTION
 import com.example.discover.utils.Constants.Companion.HEADING
 import com.example.discover.utils.Constants.Companion.IMAGE_URL
 import com.example.discover.utils.Constants.Companion.SOURCE
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class DetailedActivity : AppCompatActivity() {
@@ -22,19 +32,17 @@ class DetailedActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityDetailedBinding
+    private lateinit var database: ArticleDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detailed)
+        database = ArticleDatabase.getDatabase(this)
 
         init()
 
-        binding.IvBackButton.setOnClickListener {
-            Log.d("DEEPAK", "CLICKED")
-        }
-
     }
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ResourceAsColor")
     private fun init() {
         val author: String = intent.getStringExtra(AUTHOR).toString()
         val heading: String = intent.getStringExtra(HEADING).toString()
@@ -49,5 +57,13 @@ class DetailedActivity : AppCompatActivity() {
         binding.TvHeading.text = heading
         binding.collapsingToolbar.title = "by $source"
         Glide.with(this).load(imageUrl).centerCrop().placeholder(R.drawable.no_image_avaliable).into(binding.IvBackground)
+
+        binding.btnSave.setOnClickListener {
+
+            GlobalScope.launch {
+                database.articleDao().insertArticle(Article(0, author, "", description, date, Source(source, source), heading, "", imageUrl))
+            }
+            binding.btnSave.backgroundTintList = AppCompatResources.getColorStateList(this, R.color.red)
+        }
     }
  }

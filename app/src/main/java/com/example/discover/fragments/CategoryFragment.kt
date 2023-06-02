@@ -37,8 +37,6 @@ class CategoryFragment(private val q: String) : Fragment(), OnNewsClickListener 
 
         val newsRepository = (activity?.applicationContext as NewsApplication).newsRepository
         newsViewModel = ViewModelProvider(this, NewsViewModelFactory(newsRepository, q, "publishedAt"))[NewsViewModel::class.java]
-
-
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = allNewsAdapter
 
