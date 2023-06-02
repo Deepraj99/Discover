@@ -12,4 +12,6 @@
 Are there transaction limits? The Federal Reserve Board of Governors removed the cap on transfers and withdrawals from savings accounts, previously outlined under its Regulation D, in April 2020. Still, banks may restrict how many transfers or withdrawals you can complete monthly.
 Are there minimum balance or deposit requirements? Banks may require a minimum deposit to open a savings account or have minimum balance requirements.
 Other considerations may include how extensive the sign-up process is and whether you are required to have other accounts with that bank.</string>
+    <string name="search_here">Search here...</string>
+    <string name="desc">News from all around the world</string>
 </resources>
