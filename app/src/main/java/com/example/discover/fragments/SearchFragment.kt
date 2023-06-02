@@ -1,5 +1,7 @@
 package com.example.discover.fragments
 
+import android.app.DownloadManager.Query
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,8 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.discover.R
+import com.example.discover.activities.DetailedActivity
+import com.example.discover.activities.SearchedDataActivity
 import com.example.discover.adapters.DashboardPagerAdapter
 import com.example.discover.databinding.FragmentSearchBinding
+import com.example.discover.utils.Constants.Companion.QUERY
 import com.google.android.material.tabs.TabLayoutMediator
 
 class SearchFragment : Fragment() {
@@ -26,9 +31,18 @@ class SearchFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentSearchBinding.inflate(inflater, container, false)
         setUpTabLayoutWithViewPager()
-        binding.ivSearch.setOnClickListener { Log.d("DEEPAK", binding.searchBar.text.toString()) }
+        searchNews()
 
         return binding.root
+    }
+
+    private fun searchNews() {
+        binding.ivSearch.setOnClickListener {
+            val intent = Intent(activity?.applicationContext, SearchedDataActivity::class.java)
+            intent.putExtra(QUERY, binding.searchBar.text)
+            binding.searchBar.text.clear()
+            startActivity(intent)
+        }
     }
 
     private fun setUpTabLayoutWithViewPager() {

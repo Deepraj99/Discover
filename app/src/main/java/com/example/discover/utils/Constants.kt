@@ -10,5 +10,6 @@ class Constants {
         const val SOURCE = "source"
         const val DATE = "date"
         const val DESCRIPTION = "description"
+        const val QUERY = "query"
     }
 }
