@@ -12,5 +12,6 @@ class Constants {
         const val DATE = "date"
         const val DESCRIPTION = "description"
         const val QUERY = "query"
+        const val FLAG = "flag"
     }
 }

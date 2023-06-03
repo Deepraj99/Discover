@@ -53,6 +53,7 @@ class FavouriteFragment : Fragment(), OnNewsClickListener {
         intent.putExtra(Constants.IMAGE_URL, article.urlToImage)
         intent.putExtra(Constants.SOURCE, article.source.name)
         intent.putExtra(Constants.DESCRIPTION, article.description)
+        intent.putExtra(Constants.FLAG, "true")
         startActivity(intent)
     }
 }

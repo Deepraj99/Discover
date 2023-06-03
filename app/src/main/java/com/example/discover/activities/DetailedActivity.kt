@@ -19,6 +19,7 @@ import com.example.discover.models.Source
 import com.example.discover.utils.Constants.Companion.AUTHOR
 import com.example.discover.utils.Constants.Companion.DATE
 import com.example.discover.utils.Constants.Companion.DESCRIPTION
+import com.example.discover.utils.Constants.Companion.FLAG
 import com.example.discover.utils.Constants.Companion.HEADING
 import com.example.discover.utils.Constants.Companion.IMAGE_URL
 import com.example.discover.utils.Constants.Companion.SOURCE
@@ -50,6 +51,7 @@ class DetailedActivity : AppCompatActivity() {
         val date: String = intent.getStringExtra(DATE).toString()
         val description: String = intent.getStringExtra(DESCRIPTION).toString()
         val imageUrl: String = intent.getStringExtra(IMAGE_URL).toString()
+        val flag: String = intent.getStringExtra(FLAG).toString()
 
         binding.TvAuthor.text = author
         binding.TvDate.text = date
@@ -58,12 +60,18 @@ class DetailedActivity : AppCompatActivity() {
         binding.collapsingToolbar.title = "by $source"
         Glide.with(this).load(imageUrl).centerCrop().placeholder(R.drawable.no_image_avaliable).into(binding.IvBackground)
 
-        binding.btnSave.setOnClickListener {
-
-            GlobalScope.launch {
-                database.articleDao().insertArticle(Article(0, author, "", description, date, Source(source, source), heading, "", imageUrl))
-            }
+        if (flag == "true") {
             binding.btnSave.backgroundTintList = AppCompatResources.getColorStateList(this, R.color.red)
+            binding.btnSave.imageTintList = AppCompatResources.getColorStateList(this, R.color.red)
+        } else {
+            binding.btnSave.setOnClickListener {
+
+                GlobalScope.launch {
+                    database.articleDao().insertArticle(Article(0, author, "", description, date, Source(source, source), heading, "", imageUrl))
+                }
+                binding.btnSave.backgroundTintList = AppCompatResources.getColorStateList(this, R.color.red)
+                binding.btnSave.imageTintList = AppCompatResources.getColorStateList(this, R.color.red)
+            }
         }
     }
  }
