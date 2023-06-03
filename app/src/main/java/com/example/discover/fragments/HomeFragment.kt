@@ -11,7 +11,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.discover.R
 import com.example.discover.activities.DetailedActivity
 import com.example.discover.activities.NewsApplication
 import com.example.discover.adapters.AllNewsAdapter
@@ -50,6 +52,10 @@ class HomeFragment : Fragment(), OnNewsClickListener {
 
         val newsRepository = (activity?.applicationContext as NewsApplication).newsRepository
         newsViewModel = ViewModelProvider(this, NewsViewModelFactory(newsRepository, "india", "publishedAt"))[NewsViewModel::class.java]
+
+        binding.tvViewAll.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+        }
 
         //top-headlines
         ViewPagerTransition.transitions(binding.viewPager)

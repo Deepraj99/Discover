@@ -63,6 +63,11 @@ class DetailedActivity : AppCompatActivity() {
         if (flag == "true") {
             binding.btnSave.backgroundTintList = AppCompatResources.getColorStateList(this, R.color.red)
             binding.btnSave.imageTintList = AppCompatResources.getColorStateList(this, R.color.red)
+
+            binding.btnSave.setOnClickListener {
+                binding.btnSave.backgroundTintList = AppCompatResources.getColorStateList(this, R.color.gray)
+                binding.btnSave.imageTintList = AppCompatResources.getColorStateList(this, R.color.gray)
+            }
         } else {
             binding.btnSave.setOnClickListener {
 

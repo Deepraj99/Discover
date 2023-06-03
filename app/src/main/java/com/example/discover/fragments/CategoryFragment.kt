@@ -40,11 +40,24 @@ class CategoryFragment(private val q: String) : Fragment(), OnNewsClickListener 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = allNewsAdapter
 
-        newsViewModel.allNewsData.observe(viewLifecycleOwner, Observer {
-            binding.shimmerViewContainer.stopShimmer()
-            binding.shimmerViewContainer.visibility = View.GONE
-            allNewsAdapter.setData(it.articles)
+        newsViewModel.allNewsData.observe(viewLifecycleOwner, Observer { allNewsAdapter.setData(it.articles) })
+
+        newsViewModel.getIsLoading().observe(viewLifecycleOwner, Observer {loading ->
+
+            if(loading){
+                binding.recyclerView.visibility = View.GONE
+                binding.shimmerViewContainer.startShimmer()
+                binding.shimmerViewContainer.visibility = View.VISIBLE
+            }else{
+                binding.shimmerViewContainer.stopShimmer()
+                binding.apply{
+                    binding.shimmerViewContainer.visibility = View.GONE
+                    binding.recyclerView.visibility = View.VISIBLE
+                }
+            }
+
         })
+
         return binding.root
     }
 

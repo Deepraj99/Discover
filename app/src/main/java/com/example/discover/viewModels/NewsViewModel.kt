@@ -22,4 +22,8 @@ class NewsViewModel(private val newsRepository: NewsRepository, private val q: S
 
     val allNewsData: LiveData<News>
     get() = newsRepository.newsAllLiveData
+
+    fun getIsLoading(): LiveData<Boolean> {
+        return newsRepository.getIsLoading()
+    }
 }

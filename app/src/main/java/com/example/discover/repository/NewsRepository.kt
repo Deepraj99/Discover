@@ -7,6 +7,7 @@ import com.example.discover.retrofit.ApiInterface
 
 class NewsRepository(private val apiInterface: ApiInterface) {
 
+    private val isLoading = MutableLiveData<Boolean>()
     private val newsTopHeadlinesMutableLiveData = MutableLiveData<News>()
     val newsTopHeadlinesLiveData: LiveData<News>
     get() = newsTopHeadlinesMutableLiveData
@@ -24,10 +25,17 @@ class NewsRepository(private val apiInterface: ApiInterface) {
     }
 
     suspend fun getAllNews(q: String, sortBy: String) {
+
+        isLoading.postValue(true)
         val allNews = apiInterface.getAllNews(q, sortBy)
 
         if(allNews.body() != null) {
             newsAllMutableLiveData.postValue(allNews.body())
+            isLoading.postValue(false)
         }
+    }
+
+    fun getIsLoading(): LiveData<Boolean> {
+        return isLoading
     }
 }
